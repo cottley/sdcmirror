@@ -1,0 +1,160 @@
+{
+  "products": [
+    {
+      "productgroupname": "Virtualization",
+	  "description": "Tools to manage and create virtual machines and services.",
+	  "productlist": [
+	    {
+		  "productname": "Virtual Box",
+		  "productdescription": "VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use. Not only is VirtualBox an extremely feature rich, high performance product for enterprise customers, it is also the only professional solution that is freely available as Open Source Software under the terms of the GNU General Public License (GPL) version 2.",
+		  "productdetails": [
+		    {
+			  "description": "Virtual Box",
+			  "version": "4.3.10", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Installation executable", 
+			  "platform": "Windows", 
+			  "collection": "64-bit", 
+			  "size": "104878", 
+			  "filename": "VirtualBox-4.3.10-93012-Win.exe",
+			  "url": "archive/Virtual-Machine/VirtualBox-4.3.10-93012-Win.exe"
+			},
+		    {
+			  "description": "Virtual Box",
+			  "version": "4.3.8", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Installation executable", 
+			  "platform": "Windows", 
+			  "collection": "64-bit", 
+			  "size": "104722", 
+			  "filename": "VirtualBox-4.3.8-92456-Win.exe",
+			  "url": "archive/Virtual-Machine/VirtualBox-4.3.8-92456-Win.exe"
+			}			
+		  ]
+		},
+	    {
+		  "productname": "ISOs",
+		  "productdescription": "An ISO image is an archive file of an optical disc, a type of disk image composed of the data contents of every written sector of an optical disc, including the optical disc file system.[1] ISO image files usually have a file extension of .iso. The name ISO is taken from the ISO 9660 file system used with CD-ROM media, but what is known as an ISO image might also contain a UDF (ISO/IEC 13346) file system (commonly used by DVDs and Blu-ray Discs)",
+		  "productdetails": [
+		    {
+			  "description": "Red Hat Enterprise Linux",
+			  "version": "6.2", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Archive (ISO)", 
+			  "platform": "Linux", 
+			  "collection": "64-bit", 
+			  "size": "3505504", 
+			  "filename": "RHEL_6.2-x86_64.iso",
+			  "url": "archive/Virtual-Machine/RHEL_6.2-x86_64.iso"
+			},
+		    {
+			  "description": "CentOS Disk 1",
+			  "version": "6.5", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Archive (ISO)", 
+			  "platform": "Linux", 
+			  "collection": "64-bit", 
+			  "size": "4363264", 
+			  "filename": "CentOS-6.5-x86_64-bin-DVD1.iso",
+			  "url": "archive/Virtual-Machine/CentOS-6.5-x86_64-bin-DVD1.iso"
+			},		
+		    {
+			  "description": "CentOS Disk 2",
+			  "version": "6.5", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Archive (ISO)", 
+			  "platform": "Linux", 
+			  "collection": "64-bit", 
+			  "size": "1254292", 
+			  "filename": "CentOS-6.5-x86_64-bin-DVD2.iso",
+			  "url": "archive/Virtual-Machine/CentOS-6.5-x86_64-bin-DVD2.iso"
+			}			
+		  ]
+		}		
+	  ]
+    },
+	{
+	  "productgroupname": "Programming",
+	  "description": "Programming languages, compilers, tools and other related software.",
+	  "productlist": [
+        {
+		  "productname": "Compilers",
+		  "productdescription": "Convert high level languages to machine code.",
+		  "productdetails": [
+		    {
+			  "description": "Free Pascal",
+			  "version": "2.6.4", 
+			  "released": "11 Mar 2014", 
+			  "contenttype": "Software", 
+			  "releasetype": "Executable Installer", 
+			  "platform": "Windows", 
+			  "collection": "32-bit", 
+			  "size": "4523", 
+			  "filename": "fpc-2.6.4.i386-win32.exe",
+			  "url": "archive/Programming/fpc-2.6.4.i386-win32.exe"
+			},
+		    {
+			  "description": "Open Watcom C compiler",
+			  "version": "1.9", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Executable Installer", 
+			  "platform": "Windows", 
+			  "collection": "32-bit", 
+			  "size": "82044", 
+			  "filename": "open-watcom-c-win32-1.9.exe",
+			  "url": "archive/Programming/open-watcom-c-win32-1.9.exe"
+			}			
+		  ]
+		},
+        {
+		  "productname": "Interpreters",
+		  "productdescription": "Convert high level languages to byte code that is executed on a virtual machine.",
+		  "productdetails": [
+		    {
+			  "description": "Euphoria Interpreter",
+			  "version": "4.0.5", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Executable Installer", 
+			  "platform": "Windows", 
+			  "collection": "32-bit", 
+			  "size": "44198", 
+			  "filename": "euphoria-4.0.5-ow.exe",
+			  "url": "archive/Programming/euphoria-4.0.5-ow.exe"
+			}			
+		  ]
+		}		
+	  ]
+	},
+	{
+	  "productgroupname": "Utilities",
+	  "description": "Utility programs that help in the creation of a larger solution.",
+	  "productlist": [
+        {
+		  "productname": "Image creation and manipulation",
+		  "productdescription": "Image creation and manipulation.",
+		  "productdetails": [
+		    {
+			  "description": "ImageMagick",
+			  "version": "6.8.9", 
+			  "released": "", 
+			  "contenttype": "Software", 
+			  "releasetype": "Executable Installer", 
+			  "platform": "Windows", 
+			  "collection": "64-bit", 
+			  "size": "19682", 
+			  "filename": "ImageMagick-6.8.9-0-Q16-x64-dll.exe",
+			  "url": "archive/Utilities/ImageMagick-6.8.9-0-Q16-x64-dll.exe"
+			}			
+		  ]
+		}		
+	  ]
+	}	
+  ]
+}

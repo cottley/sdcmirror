@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Software Catalog</title>
+	<meta http-equiv="x-ua-compatible" content="IE=Edge"/> 
+	<link rel="stylesheet" type="text/css" href="lib/js/w2ui-1.3.2/w2ui-1.3.2.min.css" />
+	<script src="lib/js/jquery/2.0.2/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/js/w2ui-1.3.2/w2ui-1.3.2.min.js"></script>
+	<style type="text/css">
+html,body{
+  height: 100%;
+  margin: 0;
+  padding: 0;  
+}
+body {
+  min-height: 100%;
+  background-color: #e1e2e6;
+}
+#grid_productgroupname { width: 100%; height: 100%; }
+#grid_productlist { width: 100%; height: 100%; }
+#grid_productdetail { width: 100%; height: 100%; }
+#sdcheader { font-size:200%; font-family:"Lucida Console";  }
+
+.tab {
+	width: 100%;
+	height: 100%;
+	border: 1px solid silver;
+	border-top: 0px;
+	display: none;
+	padding: 10px;
+	overflow: auto;
+}
+	</style>
+</head>
+<body>
+
+<div id="layout" style="width: 100%; height: 100%;"></div>
+
+
+<script type="text/javascript">
+/* var griddata = {};*/
+var datastore = {};
+
+function populate_grids_ProductDetail(groupid, listid) {
+  w2ui['grid_productdetail'].clear(); 
+  var itemstoadd = [];
+  if ((groupid == "-1") && (listid == "-1")) {
+    $.each(datastore.products, function(currgroupid, item) {  
+      $.each(datastore.products[currgroupid].productlist, function(currlistid, item) {
+        $.each(datastore.products[currgroupid].productlist[currlistid].productdetails, function(i, item) {
+          itemstoadd[itemstoadd.length] = { recid: currgroupid+'.'+currlistid+'.'+i, description: item.description, version: item.version, released: item.released,   contenttype: item.contenttype, releasetype: item.releasetype, platform: item.platform, collection: item.collection, size: item.size, filename: item.filename, url: item.url}; 
+        });	
+	  }); 
+    });	  
+  } else if (listid == "-1") {
+    $.each(datastore.products[groupid].productlist, function(currlistid, item) {
+      $.each(datastore.products[groupid].productlist[currlistid].productdetails, function(i, item) {
+        itemstoadd[itemstoadd.length] = { recid: groupid+'.'+currlistid+'.'+i, description: item.description, version: item.version, released: item.released, contenttype: item.contenttype, releasetype: item.releasetype, platform: item.platform, collection: item.collection, size: item.size, filename: item.filename, url: item.url}; 
+      });	
+	});
+  } else {
+    $.each(datastore.products[groupid].productlist[listid].productdetails, function(i, item) {
+      itemstoadd[itemstoadd.length] = { recid: groupid+'.'+listid+'.'+i, description: item.description, version: item.version, released: item.released, contenttype: item.contenttype, releasetype: item.releasetype, platform: item.platform, collection: item.collection, size: item.size, filename: item.filename, url: item.url}; 
+    });
+  }
+  w2ui['grid_productdetail'].add(itemstoadd);
+}
+
+function populate_grids_ProductList(groupid) {
+  w2ui['grid_productlist'].clear(); 
+  var itemstoadd = [];
+  itemstoadd[itemstoadd.length] =  { recid: groupid+'.-1', productname: "-- All --", productdescription: "All the products in this group" };
+  if (groupid == "-1") {
+    $.each(datastore.products, function(currgroupid, item) {
+      $.each(datastore.products[currgroupid].productlist, function(i, item) {
+       itemstoadd[itemstoadd.length] = { recid: currgroupid+'.'+i, productname: item.productname, productdescription: item.productdescription };
+      });	
+	});
+  } else {
+    $.each(datastore.products[groupid].productlist, function(i, item) {
+     itemstoadd[itemstoadd.length] = { recid: groupid+'.'+i, productname: item.productname, productdescription: item.productdescription };
+    });
+  }
+  w2ui['grid_productlist'].add(itemstoadd);
+}
+
+function populate_grids_ProductGroupName() {
+  w2ui['grid_productgroupname'].clear(); 
+  var itemstoadd = [];
+  itemstoadd[itemstoadd.length] =  { recid: "-1", productgroupname: "-- All --" };
+  $.each(datastore.products, function(i, item) {
+	 itemstoadd[itemstoadd.length] =  { recid: i, productgroupname: item.productgroupname }
+  });
+  w2ui['grid_productgroupname'].add(itemstoadd);
+  w2ui['grid_productgroupname'].select(0);
+  populate_grids_ProductList(0);
+}
+/*
+function populateGridData(newdata) {
+  griddata["productgroupname"] = {}
+  $.each(newdata.products, function(i, item) {
+    griddata["productgroupname"][i] = item.productgroupname;
+  });
+  populate_grids_ProductGroupName();
+}
+*/
+
+function getSelectedProductGroupId() {
+  return w2ui['grid_productgroupname'].getSelection()[0];
+}
+
+$(function () {
+	var pstyle = 'padding: 5px; '; // background-color: #e1e2e6;
+	var nostyle = 'padding: 0px; '; // background-color: #e1e2e6;
+	$('#layout').w2layout({
+		name: 'layout',
+		padding: 0,	
+		resizer: 0,		
+		panels: [
+			{ type: 'top', size: 95, resizable: false, style: 'background:url(images/SC_Banner.jpg) no-repeat top left;  background-color: #003366;', content: '' },
+			/*{ type: 'left', size: 5, resizable: false, style: nostyle, content: '' },
+			{ type: 'right', size: 5, resizable: false, style: nostyle, content: '' },*/
+			{ type: 'bottom', size: 5, resizable: false, style: 'background:url(images/SC_Banner_bg.jpg) no-repeat top left; background-color: #003366;', content: '' }
+		]
+	});
+
+	var pstyle = ' border: 1px solid #dfdfdf; padding: 5px;'; // background-color: #e1e2e6;
+	$().w2layout({
+		name: 'layout2',
+		panels: [
+			/*{ type: 'top', size: 40, resizable: true, hidden: true, style: pstyle, content: 'top' },*/
+			{ type: 'left', size: '20%', resizable: true, style: pstyle },
+			{ type: 'main', size: '80%', resizable: true, style: pstyle },
+			/*{ type: 'preview', size: '50%', resizable: true, hidden: true, style: pstyle, content: 'preview' },
+			{ type: 'right', size: '80%', resizable: true, hidden: true, style: pstyle, content: 'right' },*/
+			{ type: 'bottom', size: '70%', resizable: true, style: pstyle }
+		]
+	});
+	
+    $().w2layout({
+		name: 'layouttabs',
+		panels: [
+			{ type: 'top', size: 29, resizable: false, style: 'padding:0px', content: 'top' },
+			{ type: 'main', size: '80%', resizable: false, style: 'padding:0px', hidden: true, content:'' }
+		]
+	});
+
+	$().w2layout({
+		name: 'aboutsdc',
+		panels: [
+			{ type: 'top', size: '30%', resizable: false, style: '', content: '' },
+			{ type: 'left', size: '30%', resizable: false, style: '', content: '' },
+			{ type: 'main', resizable: false, content: '<h1>Software Download Catalog</h1><h2>Developed by Christopher Ottley</h2><p>Developed using the following components:<ul><li>JQuery - The write less do more Javascript library - <a href="http://jquery.com/">http://jquery.com/</a></li><li>W2ui Javascript UI library - <a href="http://w2ui.com/web/">http://w2ui.com/web/</a></li></p>' },
+			{ type: 'right', size: '30%', resizable: false, style: '', content: '' },
+			{ type: 'bottom', size: '30%', resizable: false, style: '', content: '' }
+		]
+	});	
+	
+	w2ui['layouttabs'].content('top', '<div id="tabs" style="width: 100%; height: 29px;"></div>');
+	var layout2 = w2ui['layout2'];
+	w2ui['layouttabs'].content('main', layout2);
+	
+	w2ui['layout'].content('main', w2ui['layouttabs']);
+	
+    $('#tabs').w2tabs({
+		name: 'tabs',
+		active: 'tab1',
+		tabs: [
+			{ id: 'tab1', caption: 'Downloads' },
+			/*{ id: 'tab2', caption: 'Configuration' },*/
+			{ id: 'tab3', caption: 'About' }
+		],
+		onClick: function (event) {
+			if (event.target == "tab1") {
+			  w2ui['layouttabs'].content('main', layout2);
+			} else if (event.target == "tab3") {
+			  w2ui['layouttabs'].content('main', w2ui['aboutsdc']);
+			}
+		}
+	});	
+	
+    $().w2grid({ 
+		name: 'grid_productgroupname', 
+		header: 'Product Group Name',
+		show: { header: true, columnHeaders: false },
+		columns: [
+            { field: 'recid', caption: 'ID', size: '50px', sortable: true, attr: 'align=center', hidden:true },		
+			{ field: 'productgroupname', caption: 'Product Group Name', size: '100%', sortable: true}
+		],
+		records: [
+		 
+		],
+		onClick: function (event) {
+		  populate_grids_ProductList(event.recid);
+		  w2ui['grid_productdetail'].clear(); 
+		}
+	});
+	
+	$().w2grid({ 
+		header: 'Product List',
+		show: { header: true },
+		name: 'grid_productlist', 
+		columns: [			
+            { field: 'recid', caption: 'ID', size: '50px', sortable: true, hidden:true },				
+			{ field: 'productname', caption: 'Product Name', size: '15%', style: ' border-bottom: 1px solid white; padding-right: 5px;', resizable: true,  sortable: true }, /* background-color: #efefef; */ 
+			{ field: 'productdescription', caption: 'Product Description', size: '75%', resizable: true, sortable: true }
+		],
+		records: [
+		
+		],
+		onClick: function (event) {
+		  console.log(event.recid);
+
+		  var rec = event.recid.split(".");
+		  var groupid = rec[0]; // getSelectedProductGroupId()
+		  var recid = rec[1];
+		  populate_grids_ProductDetail(groupid, recid);
+
+		}		
+	});	
+
+	$().w2grid({ 
+		header: 'Product Detail',
+		show: {  header: false, columnHeaders: true, toolbar: true, footer: true  },
+		name: 'grid_productdetail',
+		multiSearch: true,
+		searches: [
+			{ field: 'description', caption: 'Description', type: 'text' },
+			{ field: 'version', caption: 'Version', type: 'text' },
+			{ field: 'released', caption: 'Released', type: 'text' },
+			{ field: 'contenttype', caption: 'Content Type', type: 'text' },
+			{ field: 'releasetype', caption: 'Release Type', type: 'text' },
+			{ field: 'platform', caption: 'Platform', type: 'text' },
+			{ field: 'collection', caption: 'Collection', type: 'text' },
+			{ field: 'size', caption: 'Size (KB)', type: 'int' },
+			{ field: 'filename', caption: 'Filename', type: 'text' }			
+		],		
+		columns: [			
+            { field: 'recid', caption: 'ID', size: '1px', sortable: true, hidden:true },				
+			{ field: 'description', caption: 'Description', resizable: true, size: '20%', sortable: true },
+			{ field: 'version', caption: 'Version', resizable: true, size: '5%', sortable: true },
+			{ field: 'released', caption: 'Released', resizable: true, size: '5%', sortable: true },
+			{ field: 'contenttype', caption: 'Content Type', resizable: true, size: '10%', sortable: true },
+			{ field: 'releasetype', caption: 'Release Type', resizable: true, size: '10%', sortable: true },
+			{ field: 'platform', caption: 'Platform', resizable: true, size: '10%', sortable: true },			
+			{ field: 'collection', caption: 'Collection', resizable: true, size: '10%', sortable: true },
+			{ field: 'size', caption: 'Size (KB)', resizable: true, size: '5%', sortable: true, attr: 'align=right' },
+			{ field: 'filename', caption: 'Filename', resizable: true, size: '25%', sortable: true },
+			{ field: 'url', caption: 'URL', size: '1px', hidden:true }
+		],
+		records: [
+		
+		],
+	    onDblClick: function(event) {
+		  //console.log(this.records[event.recid].url);
+		  var index = 0;
+		  for (var i=0; i<this.records.length; i++) {
+		    if (this.records[i].recid == event.recid) {
+			  index = i;
+			  break;
+			}
+		  }
+		  var win=window.open(this.records[index].url, '_blank');
+          win.focus();
+	    }
+	});	
+
+	w2ui['layout2'].content('left', w2ui['grid_productgroupname']);	
+	w2ui['layout2'].content('main', w2ui['grid_productlist']);	
+	w2ui['layout2'].content('bottom', w2ui['grid_productdetail']);	
+	
+	$.getJSON( "data/sdc.json")
+     .done(function( data ) {
+		datastore = data;
+		populate_grids_ProductGroupName();
+	 });
+});
+</script>
+
+</body>
+</html>
